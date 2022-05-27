@@ -1,20 +1,23 @@
 const searchInput = document.querySelector('[album-search');
 
-searchInput.addEventListener('input', e => {
-  const value = e.target.value;
-  if (!value) window.alert('Must type something')
-  try {
-    fetch(`https://itunes.apple.com/search?term=$%7B${value}%7D&media=music&entity=album&attribute=artistTerm&limit=200%22`)
-      .then(res => res.json())
-      .then(data => addData(value ,data.results));
-  } catch(e) {
-    window.alert('Must have vaild search')
+searchInput.addEventListener('keyup', e => {
+  e.preventDefault();
+  if (e.keyCode === 13) {
+    const value = e.target.value;
+    if (!value) window.alert('Please fill field')
+
+    try {
+      fetch(`https://itunes.apple.com/search?term=${value}&media=music&entity=album&attribute=artistTerm&limit=200`)
+        .then(res => res.json())
+        .then(data => addData(value, data.results));
+    } catch(e) {
+      window.alert(e.message)
+    }
   }
 });
 
 
 const addData = (value, data) => {
-  console.log(data);
   let resultCount = data.length;
   let resultTitle = document.querySelector('#intro');
 

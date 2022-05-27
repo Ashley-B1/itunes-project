@@ -18,7 +18,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  position: sticky;
+  position: fixed;
 }
 
 #search-input {
@@ -30,7 +30,7 @@
 }
 
 .fa-search {
-  margin-left: -22px;
+  margin-left: -28px;
 }
 
 #my-results {
@@ -38,15 +38,21 @@
   padding: .6rem;
   width: 80%;
   text-align: center;
+  position: relative;
+  top: 4rem
 }
 
 .intro {
   font-size: 1.3rem;
   font-weight: 500;
   margin-bottom: 2.5rem;
+  position: relative;
+  z-index: -1;
 }
 
 #result-container {
+  position: relative;
+  z-index: -1;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -55,4 +61,21 @@
 .album-card {
   width: 12rem;
   height: 12rem;
+  overflow: hidden;
+  padding: .3rem 0;
+  border: black 1px solid;
+  margin: 0 2rem 2rem 0rem;
+  background-color: #51C1B1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* .album-pic {
+  width: 100%
+} */
+
+.album-title {
+  font-size: .7rem;
+  width: 80%;
 }

@@ -1,30 +1,43 @@
 const searchInput = document.querySelector('[album-search');
+const resultsContainer = document.querySelector('#result-container');
+
+// const clearOut = () => {
+//   myResults.style.display = 'none'
+// };
 
 searchInput.addEventListener('keyup', e => {
   e.preventDefault();
   if (e.keyCode === 13) {
-    const value = e.target.value;
-    if (!value) window.alert('Please fill field')
+    let input = e.target.value;
+    // console.log(input)
 
-    try {
-      fetch(`https://itunes.apple.com/search?term=${value}&media=music&entity=album&attribute=artistTerm&limit=200`)
-        .then(res => res.json())
-        .then(data => addData(value, data.results));
-    } catch(e) {
-      window.alert(e.message)
+    if (input === '') {
+      alert('Please fill out this field')
+    } else {
+      fetchData(input)
     }
+
+    // input ='';
   }
 });
+
+const fetchData = artist => {
+  resultsContainer.textContent = '';
+  fetch(`https://itunes.apple.com/search?term=${artist}&media=music&entity=album&attribute=artistTerm&limit=200`)
+  .then(res => res.json())
+  .then(data => addData(artist, data.results));
+};
 
 
 const addData = (value, data) => {
   let resultCount = data.length;
   let resultTitle = document.querySelector('#intro');
+  resultsContainer.style.display = 'none'
 
   resultTitle.innerText = `${resultCount} results for ${value}`
 
   data.forEach(album => {
-    let resultContainer = document.querySelector('#result-container');
+    resultsContainer.style.display = 'flex';
     let albumCard = document.createElement('div');
     let albumPic = document.createElement('img');
     let albumTitle = document.createElement('h3');
@@ -34,10 +47,10 @@ const addData = (value, data) => {
     albumPic.setAttribute('src', `${album.artworkUrl100}`)
     albumTitle.setAttribute('class', 'album-title');
 
-    resultContainer.append(albumCard);
+    resultsContainer.append(albumCard);
     albumCard.append(albumPic);
     albumCard.append(albumTitle);
 
-    albumTitle.innerText += `${album.collectionName}`
+    albumTitle.innerText = `${album.collectionName}`
   });
 };

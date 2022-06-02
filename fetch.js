@@ -40,21 +40,24 @@ const addData = (value, data) => {
   let resultTitle = document.querySelector('#intro');
   resultsContainer.style.display = 'none'
 
-  resultTitle.innerText = `${resultCount} results for ${value}`
+  resultTitle.innerText = `${resultCount} results for "${value}"`
 
   data.forEach(album => {
     resultsContainer.style.display = 'flex';
     let albumCard = document.createElement('div');
+    let picSection = document.createElement('div')
     let albumPic = document.createElement('img');
     let albumTitle = document.createElement('h3');
 
     albumCard.setAttribute('class', 'album-card');
+    picSection.setAttribute('class', 'pic-sect');
     albumPic.setAttribute('class', 'album-pic');
     albumPic.setAttribute('src', `${album.artworkUrl100}`)
     albumTitle.setAttribute('class', 'album-title');
 
     resultsContainer.append(albumCard);
-    albumCard.append(albumPic);
+    albumCard.append(picSection);
+    picSection.appendChild(albumPic);
     albumCard.append(albumTitle);
 
     albumTitle.innerText = `${album.collectionName}`

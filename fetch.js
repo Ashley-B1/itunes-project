@@ -1,6 +1,7 @@
 const searchInput = document.querySelector('[album-search');
 const resultsContainer = document.querySelector('#result-container');
 const loader = document.querySelector('#loader');
+const searchBtn = document.getElementById('search-icon');
 
 // const clearOut = () => {
 //   myResults.style.display = 'none'
@@ -19,6 +20,18 @@ searchInput.addEventListener('keyup', e => {
   }
 });
 
+searchBtn?.addEventListener('click', e => {
+  e.preventDefault();
+
+  const input = searchInput.value;
+
+  if (input === '') {
+    alert('Please fill out this field')
+  } else {
+    loadSpinner(input)
+  }
+});
+
 const loadSpinner = input => {
   loader.classList.add('showLoader');
   setTimeout(() => {
@@ -31,7 +44,8 @@ const fetchData = artist => {
   resultsContainer.textContent = '';
   fetch(`https://itunes.apple.com/search?term=${artist}&media=music&entity=album&attribute=artistTerm&limit=200`)
   .then(res => res.json())
-  .then(data => addData(artist, data.results));
+  .then(data => addData(artist, data.results))
+  .catch(e => {console.log(e.message)});
 };
 
 
@@ -43,6 +57,7 @@ const addData = (value, data) => {
   resultTitle.innerText = `${resultCount} results for "${value}"`
 
   data.forEach(album => {
+    // console.log(album);
     resultsContainer.style.display = 'flex';
     let albumCard = document.createElement('div');
     let picSection = document.createElement('div')
@@ -60,6 +75,6 @@ const addData = (value, data) => {
     picSection.appendChild(albumPic);
     albumCard.append(albumTitle);
 
-    albumTitle.innerText = `${album.collectionName}`
+    albumTitle.innerText = `${album.collectionName} by ${album.artistName}.`
   });
 };

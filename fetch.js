@@ -1,5 +1,6 @@
 const searchInput = document.querySelector('[album-search');
 const resultsContainer = document.querySelector('#result-container');
+const loader = document.querySelector('#loader');
 
 // const clearOut = () => {
 //   myResults.style.display = 'none'
@@ -9,17 +10,22 @@ searchInput.addEventListener('keyup', e => {
   e.preventDefault();
   if (e.keyCode === 13) {
     let input = e.target.value;
-    // console.log(input)
 
     if (input === '') {
       alert('Please fill out this field')
     } else {
-      fetchData(input)
+      loadSpinner(input)
     }
-
-    // input ='';
   }
 });
+
+const loadSpinner = input => {
+  loader.classList.add('showLoader');
+  setTimeout(() => {
+    loader.classList.remove('showLoader');
+    fetchData(input)
+  }, 2000);
+};
 
 const fetchData = artist => {
   resultsContainer.textContent = '';

@@ -22,15 +22,21 @@
 }
 
 #search-input {
-  width: 27%;
-  padding: .3rem;
+  width: 35%;
+  padding: .5rem;
   border-radius: 5rem;
   outline: none;
   border: none;
+  transition: width 1s;
+}
+
+#search-input:focus {
+  width: 40%;
+
 }
 
 .fa-search {
-  margin-left: -35px;
+  margin-left: -40px;
 }
 
 /* .loading-container {
@@ -107,23 +113,30 @@
 }
 
 .album-card {
-  width: 12rem;
-  height: 12rem;
+  width: 9rem;
+  height: 11rem;
   overflow: hidden;
-  padding: .3rem 0;
+  padding: 0 0 .3rem 0;
   border: black 1px solid;
-  margin: 0 2rem 2rem 0rem;
+  margin: 0 1rem 1rem 0rem;
   background-color: #51C1B1;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* .album-pic {
-  width: 100%
-} */
+.pic-sect {
+  height: 60%;
+  width: 100%;
+}
+
+.album-pic {
+  width: 100%;
+  height: 100%
+}
 
 .album-title {
   font-size: .7rem;
   width: 80%;
+  margin-top: .8rem;
 }
